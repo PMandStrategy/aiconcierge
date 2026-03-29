@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Concierge — Osobní AI asistent na míru | Mira Vlach</title>
+  <meta name="description" content="Prémiová služba nastavení AI asistenta na míru pro CEO, podnikatele, manažery a aktivní seniory. Vaše data zůstávají pod vaší kontrolou.">
+  <meta name="author" content="Mira Vlach">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aiconcierge.cz/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aiconcierge.cz/">
+  <meta property="og:title" content="AI Concierge — Osobní AI asistent na míru">
+  <meta property="og:description" content="Osobní AI concierge vám nastaví inteligentního asistenta, který šetří hodiny práce týdně. Všechna data zůstávají pod vaší kontrolou.">
+  <meta property="og:locale" content="cs_CZ">
+  <meta property="og:site_name" content="AI Concierge">
+
+  <!-- Favicon: letter A in primary color -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%231B2A4A'/><text x='50' y='68' font-family='system-ui' font-size='60' font-weight='700' fill='%23C9A84C' text-anchor='middle'>A</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary-dark: #1B2A4A;
+      --accent-gold: #C9A84C;
+      --accent-hover: #B8953F;
+      --bg-light: #FAFAF8;
+      --white: #FFFFFF;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --border-light: #E8E6E1;
+      --nav-height: 72px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-light);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== UTILITIES ===== */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      background: transparent;
+    }
+
+    .nav.scrolled {
+      background: rgba(27, 42, 74, 0.97);
+      box-shadow: 0 1px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo span {
+      color: var(--accent-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-links .nav-cta {
+      background: var(--accent-gold);
+      color: var(--primary-dark);
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .nav-links .nav-cta:hover {
+      background: var(--accent-hover);
+      color: var(--primary-dark);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background: rgba(27, 42, 74, 0.98);
+      padding: 24px;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:last-child {
+      border-bottom: none;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--primary-dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: var(--nav-height);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Geometric decorative lines */
+    .hero-deco {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-deco .line {
+      position: absolute;
+      background: rgba(201, 168, 76, 0.08);
+    }
+
+    .hero-deco .line-1 {
+      width: 1px;
+      height: 300px;
+      top: 10%;
+      right: 20%;
+      transform: rotate(25deg);
+    }
+
+    .hero-deco .line-2 {
+      width: 200px;
+      height: 1px;
+      top: 30%;
+      right: 8%;
+    }
+
+    .hero-deco .line-3 {
+      width: 1px;
+      height: 200px;
+      bottom: 15%;
+      right: 25%;
+      transform: rotate(-15deg);
+    }
+
+    .hero-deco .diamond {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      transform: rotate(45deg);
+      top: 25%;
+      right: 18%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 80px 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      max-width: 720px;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: clamp(17px, 2vw, 20px);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-gold);
+      color: var(--primary-dark);
+      padding: 16px 36px;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary svg {
+      transition: transform 0.2s;
+    }
+
+    .btn-primary:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* ===== PRO KOHO ===== */
+    .pro-koho {
+      padding: 120px 0;
+      background: var(--bg-light);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      border: 1px solid var(--border-light);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 40px rgba(27, 42, 74, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .card-icon svg {
+      width: 26px;
+      height: 26px;
+      color: var(--accent-gold);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    /* ===== JAK TO FUNGUJE ===== */
+    .jak-funguje {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .timeline {
+      margin-top: 56px;
+      max-width: 680px;
+    }
+
+    .timeline-step {
+      display: flex;
+      gap: 32px;
+      position: relative;
+      padding-bottom: 48px;
+    }
+
+    .timeline-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-marker {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .timeline-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary-dark);
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .timeline-line {
+      width: 2px;
+      flex: 1;
+      background: var(--border-light);
+      margin-top: 12px;
+    }
+
+    .timeline-step:last-child .timeline-line {
+      display: none;
+    }
+
+    .timeline-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+      padding-top: 10px;
+    }
+
+    .timeline-content p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .timeline-step { gap: 20px; }
+    }
+
+    /* ===== CO DOSTANETE ===== */
+    .co-dostanete {
+      padding: 120px 0;
+      background: var(--bg-light);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 20px;
+      padding: 32px;
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+    }
+
+    .benefit-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .benefit-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--accent-gold);
+    }
+
+    .benefit h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .benefit p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== BEZPEČNOST ===== */
+    .bezpecnost {
+      padding: 120px 0;
+      background: var(--primary-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bezpecnost::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .bezpecnost .section-label {
+      color: var(--accent-gold);
+    }
+
+    .bezpecnost .section-title {
+      color: var(--white);
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .security-item {
+      display: flex;
+      gap: 20px;
+      padding: 28px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .security-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(201, 168, 76, 0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .security-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--accent-gold);
+    }
+
+    .security-item h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .security-item p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .security-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== INSPIRACE ===== */
+    .inspirace {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .quote-block {
+      max-width: 720px;
+      margin: 56px auto 0;
+      text-align: center;
+    }
+
+    .quote-mark {
+      font-size: 72px;
+      line-height: 1;
+      color: var(--accent-gold);
+      font-family: Georgia, serif;
+      opacity: 0.4;
+    }
+
+    .quote-text {
+      font-size: clamp(19px, 2.5vw, 24px);
+      font-style: italic;
+      color: var(--primary-dark);
+      line-height: 1.6;
+      margin: -16px 0 28px;
+      font-weight: 500;
+    }
+
+    .quote-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .quote-link:hover {
+      color: var(--accent-hover);
+    }
+
+    .quote-follow {
+      margin-top: 40px;
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===== O MNĚ ===== */
+    .o-mne {
+      padding: 120px 0;
+      background: var(--bg-light);
+    }
+
+    .profile {
+      max-width: 640px;
+      margin-top: 56px;
+    }
+
+    .profile-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+    }
+
+    .profile-bio {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .profile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-link-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    .profile-link-main:hover {
+      color: var(--accent-hover);
+    }
+
+    .profile-link-main svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .profile-secondary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-top: 4px;
+    }
+
+    .profile-secondary a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .profile-secondary a:hover {
+      color: var(--primary-dark);
+    }
+
+    .profile-secondary .sep {
+      color: var(--border-light);
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .cta-wrapper {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-wrapper .section-title {
+      margin-bottom: 16px;
+    }
+
+    .cta-wrapper .section-subtitle {
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .cta-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      margin: 0 auto 48px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-field input,
+    .form-field textarea {
+      padding: 14px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text-primary);
+      background: var(--bg-light);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .cta-form .btn-primary {
+      align-self: center;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .cta-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    .cta-contact a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .cta-contact a:hover {
+      color: var(--accent-gold);
+    }
+
+    .cta-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 auto 32px;
+      max-width: 480px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .cta-divider::before,
+    .cta-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-light);
+    }
+
+    @media (max-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 40px 0;
+      background: var(--primary-dark);
+      text-align: center;
+    }
+
+    .footer p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer p:first-child {
+      margin-bottom: 8px;
+    }
+
+    /* ===== SECTION DIVIDERS ===== */
+    .section-divider {
+      height: 1px;
+      background: var(--border-light);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* ===== GLOBAL SECTION PADDING MOBILE ===== */
+    @media (max-width: 768px) {
+      .pro-koho,
+      .jak-funguje,
+      .co-dostanete,
+      .bezpecnost,
+      .inspirace,
+      .o-mne,
+      .cta-section {
+        padding: 80px 0;
+      }
+
+      .hero-content {
+        padding: 48px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">AI <span>Concierge</span></a>
+      <ul class="nav-links">
+        <li><a href="#pro-koho">Pro koho</a></li>
+        <li><a href="#jak-to-funguje">Jak to funguje</a></li>
+        <li><a href="#bezpecnost">Bezpečnost</a></li>
+        <li><a href="#o-mne">O mně</a></li>
+        <li><a href="#kontakt" class="nav-cta">Napište mi</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#pro-koho">Pro koho</a>
+      <a href="#jak-to-funguje">Jak to funguje</a>
+      <a href="#bezpecnost">Bezpečnost</a>
+      <a href="#o-mne">O mně</a>
+      <a href="#kontakt">Napište mi</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-deco">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="line line-3"></div>
+      <div class="diamond"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Vaše práce. Váš AI.<br>Nastavený na míru, s&nbsp;respektem k&nbsp;vašemu soukromí.</h1>
+        <p>Osobní AI concierge vám během jednoho odpoledne nastaví inteligentního asistenta, který připravuje reporty, dělá rešerše a&nbsp;šetří hodiny práce týdně. Všechna data zůstávají pod vaší kontrolou.</p>
+        <a href="#kontakt" class="btn-primary">
+          Chci vědět víc
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRO KOHO ===== -->
+  <section class="pro-koho" id="pro-koho">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Pro koho je to</p>
+        <h2 class="section-title">Pracujete naplno. AI vám uvolní ruce.</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card fade-in">
+          <div class="card-icon">
+            <!-- Crown / Chess King -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V9l4 3 4-7 4 7 4-3v11"/></svg>
+          </div>
+          <h3>CEO a podnikatelé</h3>
+          <p>Máte v hlavě 10 projektů a den má pořád jen 24 hodin. AI Chief of Staff vám připraví podklady, udělá rešerše a zpracuje data — a&nbsp;vy se soustředíte na rozhodování.</p>
+        </div>
+        <div class="card fade-in">
+          <div class="card-icon">
+            <!-- Target -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3>Profesionálové a manažeři</h3>
+          <p>Potřebujete mít přehled, připravovat se na jednání a držet tempo. AI asistent vám udělá přípravu, na kterou byste potřebovali půl dne.</p>
+        </div>
+        <div class="card fade-in">
+          <div class="card-icon">
+            <!-- Sparkles -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          </div>
+          <h3>Aktivní senioři</h3>
+          <p>Chcete AI využívat, ale nechcete se učit programovat. Přijdete, sedíte vedle mě, a společně vám nastavím systém, který budete skutečně používat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JAK TO FUNGUJE ===== -->
+  <section class="jak-funguje" id="jak-to-funguje">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Jak to funguje</p>
+        <h2 class="section-title">Tři kroky. Žádná magie, žádné riziko.</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-step fade-in">
+          <div class="timeline-marker">
+            <div class="timeline-number">1</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Domluvíme si hodinku</h3>
+            <p>Projdeme vaše potřeby a pracovní styl. Co vás brzdí? S čím by vám AI pomohl nejvíc? Jaké nástroje používáte?</p>
+          </div>
+        </div>
+        <div class="timeline-step fade-in">
+          <div class="timeline-marker">
+            <div class="timeline-number">2</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Přinesete si notebook</h3>
+            <p>Čistý notebook (klidně starší, odložený — stačí připojení k internetu). Během 2–3 hodin na něm nastavím celý systém přímo před vámi. Společně spustíme první úkol — uvidíte výsledek hned.</p>
+          </div>
+        </div>
+        <div class="timeline-step fade-in">
+          <div class="timeline-marker">
+            <div class="timeline-number">3</div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <h3>Odnesete si ho domů</h3>
+            <p>Systém je váš. Pracujete s ním sami, ve svém tempu. Já do vašich dat nikdy nevidím. Pokud budete potřebovat radu, jsem k dispozici na follow-up.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CO DOSTANETE ===== -->
+  <section class="co-dostanete">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Co dostanete</p>
+        <h2 class="section-title">Vše potřebné pro start s&nbsp;AI asistentem.</h2>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit fade-in">
+          <div class="benefit-icon">
+            <!-- File / Constitution -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          </div>
+          <div>
+            <h3>AI „ústava" na míru</h3>
+            <p>Konfigurační soubor, který definuje, jak váš AI asistent přemýšlí, komunikuje a co smí a nesmí.</p>
+          </div>
+        </div>
+        <div class="benefit fade-in">
+          <div class="benefit-icon">
+            <!-- Workflow / Zap -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div>
+            <h3>První workflow</h3>
+            <p>Hotový automatizovaný proces šitý na vaši největší bolest — příprava na schůzky, rešerše, reporty.</p>
+          </div>
+        </div>
+        <div class="benefit fade-in">
+          <div class="benefit-icon">
+            <!-- Map / Roadmap -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+          </div>
+          <div>
+            <h3>Roadmapa dalšího rozvoje</h3>
+            <p>Plán, jak systém postupně rozšiřovat a napojovat na vaše nástroje.</p>
+          </div>
+        </div>
+        <div class="benefit fade-in">
+          <div class="benefit-icon">
+            <!-- Headphones / Support -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div>
+            <h3>Follow-up podpora</h3>
+            <p>Po nastavení jsem k dispozici pro dotazy a ladění.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BEZPEČNOST ===== -->
+  <section class="bezpecnost" id="bezpecnost">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Bezpečnost</p>
+        <h2 class="section-title">Vaše data. Vaše kontrola.<br>Bez kompromisů.</h2>
+      </div>
+      <div class="security-grid">
+        <div class="security-item fade-in">
+          <div class="security-icon">
+            <!-- Laptop -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>
+          </div>
+          <div>
+            <h3>Váš notebook, vaše data.</h3>
+            <p>Vše se nastavuje na vašem vlastním zařízení. Nikdy nepracuji na svém počítači s&nbsp;vašimi daty.</p>
+          </div>
+        </div>
+        <div class="security-item fade-in">
+          <div class="security-icon">
+            <!-- Key -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.3 9.3"/><path d="m18 5 3-3"/><path d="m15 8 3-3"/></svg>
+          </div>
+          <div>
+            <h3>Váš účet, vaše kontrola.</h3>
+            <p>AI běží pod vaším vlastním účtem. Já k němu nemám přístup.</p>
+          </div>
+        </div>
+        <div class="security-item fade-in">
+          <div class="security-icon">
+            <!-- Shield -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div>
+            <h3>Postupné odemykání.</h3>
+            <p>Začínáte offline — AI vidí jen to, co mu sami dáte. Kalendář, e-maily a další připojujete až když budete připraveni.</p>
+          </div>
+        </div>
+        <div class="security-item fade-in">
+          <div class="security-icon">
+            <!-- Eye off -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+          </div>
+          <div>
+            <h3>Profesní diskrétnost.</h3>
+            <p>O vašem nastavení, cílech ani pracovních postupech s&nbsp;nikým nemluvím.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INSPIRACE ===== -->
+  <section class="inspirace">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Inspirace</p>
+        <h2 class="section-title">Není to teorie. Už to funguje.</h2>
+      </div>
+      <div class="quote-block fade-in">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">CEO Grouponu si postavil AI systém, který mu řídí 20+ projektů paralelně. Práce, která dřív trvala týdny, je hotová za hodiny.</p>
+        <a href="https://cc.cz/vytvoril-si-ai-nacelnika-stabu-ktery-mu-silenym-tempem-meni-praci-misto-tydnu-je-hotovo-za-par-hodin-rika/" target="_blank" rel="noopener noreferrer" class="quote-link">
+          Přečíst článek na CzechCrunch
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+        <p class="quote-follow">Pomůžu vám získat podobný systém — přizpůsobený vašemu kontextu, vaší velikosti, vašemu tempu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== O MNĚ ===== -->
+  <section class="o-mne" id="o-mne">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">O mně</p>
+        <h2 class="section-title">Kdo za tím stojí.</h2>
+      </div>
+      <div class="profile fade-in">
+        <p class="profile-name">Mira Vlach</p>
+        <p class="profile-bio">Specialista na projektové řízení a realizaci strategie. AI ambasador Černá.AI. Pomáhám lidem a&nbsp;firmám dotahovat věci do konce — teď i&nbsp;s&nbsp;pomocí umělé inteligence.</p>
+        <div class="profile-links">
+          <a href="https://www.linkedin.com/in/miravlach/" target="_blank" rel="noopener noreferrer" class="profile-link-main">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Více o mně na LinkedIn
+          </a>
+          <div class="profile-secondary">
+            <a href="https://www.miravlach.cz" target="_blank" rel="noopener noreferrer">miravlach.cz</a>
+            <span class="sep">|</span>
+            <a href="https://strategickybootcamp.cz" target="_blank" rel="noopener noreferrer">strategickybootcamp.cz</a>
+            <span class="sep">|</span>
+            <a href="https://projektovyklub.cz" target="_blank" rel="noopener noreferrer">projektovyklub.cz</a>
+            <span class="sep">|</span>
+            <a href="https://okrmastermind.cz" target="_blank" rel="noopener noreferrer">okrmastermind.cz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section" id="kontakt">
+    <div class="container">
+      <div class="cta-wrapper fade-in">
+        <p class="section-label">Kontakt</p>
+        <h2 class="section-title">Zajímá vás, co by AI mohl změnit ve vaší práci?</h2>
+        <p class="section-subtitle">Napište mi — nezávazně probereme, jestli to dává smysl pro vás.</p>
+
+        <form class="cta-form" action="https://formsubmit.co/mira@aiconcierge.cz" method="POST">
+          <input type="hidden" name="_subject" value="Nová zpráva z aiconcierge.cz">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://aiconcierge.cz/#kontakt">
+          <input type="text" name="_honey" style="display:none">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Jméno</label>
+              <input type="text" id="name" name="name" required placeholder="Vaše jméno">
+            </div>
+            <div class="form-field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" required placeholder="vas@email.cz">
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="message">Zpráva</label>
+            <textarea id="message" name="message" placeholder="Čím vám mohu pomoci?"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">
+            Napište mi
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </form>
+
+        <div class="cta-divider">nebo přímo</div>
+
+        <div class="cta-contact">
+          <span>E-mail: <a href="mailto:mira@aiconcierge.cz">mira@aiconcierge.cz</a></span>
+          <span>Telefon: <a href="tel:+420774182840">774 182 840</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 AI Concierge | Mira Vlach</p>
+      <p>Žádné cookies. Žádné trackování. Vaše soukromí je pro nás zásada, ne marketingové tvrzení.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Sticky nav background on scroll
+    const nav = document.getElementById('nav');
+    function updateNav() {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Scroll-triggered fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
