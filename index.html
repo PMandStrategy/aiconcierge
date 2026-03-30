@@ -505,6 +505,74 @@
       .timeline-step { gap: 20px; }
     }
 
+    /* ===== NA CO SE MŮŽEME PODÍVAT ===== */
+    .moznosti {
+      padding: 120px 0;
+      background: var(--white);
+    }
+
+    .moznosti .section-subtitle {
+      margin-bottom: 0;
+    }
+
+    .moznosti-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .moznosti-item {
+      display: flex;
+      gap: 18px;
+      padding: 28px;
+      background: var(--bg-light);
+      border-radius: 14px;
+      border: 1px solid var(--border-light);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .moznosti-item:hover {
+      box-shadow: 0 6px 32px rgba(27, 42, 74, 0.07);
+      transform: translateY(-2px);
+    }
+
+    .moznosti-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .moznosti-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--accent-gold);
+    }
+
+    .moznosti-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .moznosti-item p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .moznosti-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ===== CO DOSTANETE ===== */
     .co-dostanete {
       padding: 120px 0;
@@ -839,6 +907,7 @@
     @media (max-width: 768px) {
       .pro-koho,
       .jak-funguje,
+      .moznosti,
       .co-dostanete,
       .bezpecnost,
       .inspirace,
@@ -971,6 +1040,99 @@
           <div class="timeline-content">
             <h3>Víte, na čem jste</h3>
             <p>Budete přesně vědět, co AI dnes umí a&nbsp;kde vám může pomoct. Pokud jste pracovali na svém notebooku, vezmete si ho i&nbsp;s&nbsp;výsledky domů a&nbsp;můžete pokračovat ve svém tempu. A&nbsp;pokud budete chtít jít dál, jsem k&nbsp;dispozici.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NA CO SE MŮŽEME PODÍVAT ===== -->
+  <section class="moznosti">
+    <div class="container">
+      <div class="fade-in">
+        <p class="section-label">Co vás může překvapit</p>
+        <h2 class="section-title">Tušíte, co všechno dnes AI zvládne?</h2>
+        <p class="section-subtitle">Tady je pár příkladů. Většinu z&nbsp;nich si můžete vyzkoušet přímo na našem sezení.</p>
+      </div>
+      <div class="moznosti-grid">
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- Context / Key -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M12 7v2"/><path d="M12 13h.01"/></svg>
+          </div>
+          <div>
+            <h3>Práce s kontextem — klíč k&nbsp;užitečným výsledkům</h3>
+            <p>Většina lidí zkusila AI a&nbsp;dostala průměrnou odpověď. Ukážeme vám, v&nbsp;čem je rozdíl — a&nbsp;proč správně zadaný kontext změní všechno.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- Search / Research -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <div>
+            <h3>Hluboká rešerše za minuty</h3>
+            <p>Zadáte téma a&nbsp;AI vám během chvíle zpracuje strukturovaný přehled z&nbsp;desítek zdrojů. Na místě si vyzkoušíte téma, které vás skutečně zajímá.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- User / Chief of Staff -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 12h-6"/><path d="M19 9v6"/></svg>
+          </div>
+          <div>
+            <h3>Osobní AI asistent pro řízení práce</h3>
+            <p>Přímo na session si můžete vyzkoušet, jak funguje systém „Chief of Staff", jaký si postavil CEO Grouponu — AI, které připravuje podklady, navrhuje kroky a&nbsp;drží přehled za vás.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- File / Document -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+          </div>
+          <div>
+            <h3>Analýza dokumentů a&nbsp;smluv</h3>
+            <p>Přinesete dokument a&nbsp;AI vám řekne, co je důležité, co chybí a&nbsp;na co si dát pozor. Stovky stran během minut — s&nbsp;přehlednými výstupy.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- Bot / Agent -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+          </div>
+          <div>
+            <h3>AI agenti pro pokročilé úkoly</h3>
+            <p>Například překlad, který rozumí kontextu, oboru i&nbsp;tónu — něco zásadně jiného než Google Translate. Na sezení si porovnáte rozdíl.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- Code / Vibecoding -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div>
+            <h3>Vibecoding — rychlé návrhy webů a&nbsp;aplikací</h3>
+            <p>I&nbsp;bez jakékoli znalosti programování si můžete během session nechat vytvořit funkční prototyp webu, jednoduchý nástroj nebo interní aplikaci.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- Chart / Data -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+          </div>
+          <div>
+            <h3>Zpracování dat bez Excelu</h3>
+            <p>AI umí projít tisíce řádků, najít vzorce, připravit graf a&nbsp;napsat shrnutí. Přinesete vlastní tabulku, nebo si to vyzkoušíte na ukázkových datech.</p>
+          </div>
+        </div>
+        <div class="moznosti-item fade-in">
+          <div class="moznosti-icon">
+            <!-- Pen / Content -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          </div>
+          <div>
+            <h3>Tvorba obsahu ve vašem stylu</h3>
+            <p>E-maily, nabídky, prezentace — přímo na session si vyzkoušíte, jak AI připraví draft, který zní jako vy. Stačí pár příkladů vašeho dosavadního stylu.</p>
           </div>
         </div>
       </div>
